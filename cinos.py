@@ -16,6 +16,7 @@ class Drink:
 
     def get_base(self):
         """Get_base method initializes and returns the value of 'base'."""
+        return self._base
 
     def get_flavors(self):
         return self._flavors
