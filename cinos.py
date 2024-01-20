@@ -1,75 +1,72 @@
-""" defining the possible bases and flavors provided by cinos """
+# Defining the possible bases and flavors provided by Cinos
 possible_bases = ["water", "sbrite", "pokeacola", "mr_salt", "hill_fog", "leaf_wine"]
-possible_flavors = ["lemon", "cherry", "strawberry", "mint", "blueberry", "lime"];
+possible_flavors = ["lemon", "cherry", "strawberry", "mint", "blueberry", "lime"]
 
 
 class Drink:
+    _drink_price = 1
+
     def __init__(self, base):
-        """ simple validation to check valid base input """
+        """Simple validation to check valid base input."""
         if base not in possible_bases:
             raise ValueError("Invalid or duplicate base")
-        """ sets private attribute of 'base' """
-        self.__base = base
-        self.__flavors = []
+        """Sets private attribute of 'base'."""
+        self._base = base
+        self._flavors = []
 
-    """ get_base method initializes and returns the value of 'base' """
     def get_base(self):
-        return self.__base
-    
+        """Get_base method initializes and returns the value of 'base'."""
+
     def get_flavors(self):
-        return self.__flavors
-    
-    """This method gets the total number flavors, and adds 1 to represent the $1 charge per drink, and the $1 additional cost per flavor"""
+        return self._flavors
+
     def get_total(self):
-        return 1 + len(self.__flavors)
-    
+        """Get_total returns the value of the drink_price class var."""
+        return self._drink_price
+
     def get_num_flavors(self):
-        return len(self.__flavors)
-    
+        """Get_num_flavors returns the length of the flavors array."""
+        return len(self._flavors)
+
     def set_flavors(self, flavors):
-        self.__flavors = flavors
-    
+        """Set_flavors is the setter function to initialize the flavors based on input."""
+        self._flavors = flavors
+
     def add_flavor(self, flavor):
-        """ simple validation to check valid flavor input """
-        if flavor not in self.__flavors:
-          self.__flavors.append(flavor)
+        """Simple validation to check valid flavor input."""
+        if flavor not in self._flavors:
+            self._flavors.append(flavor)
         else:
-          raise ValueError("Invalid or duplicate flavor")
+            raise ValueError("Invalid or duplicate flavor")
 
 
 class Order:
     def __init__(self):
-      self.__items = []
+        self._items = []
 
     def get_items(self):
-        return self.__items
-    
+        """Get_items retrieves values of items array."""
+        return self._items
+
     def get_num_items(self):
-        return len(self.__items)
-    
+        """Get_num_items returns the length of the flavors array."""
+        return len(self._items)
+
     def get_total(self):
+        """Total is initialized at zero."""
         total = 0
-        for item in self.__items:
+        for item in self._items:
+            """Iterating over each drink in the order."""
             total += item.get_total()
+            """Adding result of get_total for each item to the total var."""
         return total
-    
+
     def add_item(self, drink):
-        self.__items.append(drink)
+        """Adds the provided drink to ._items array."""
+        self._items.append(drink)
 
     def remove_item(self, index):
-        if 0 <= index < len(self.__items):
-            del self.__items[index]
-
-
-
-# testDrink = Drink("")
-# print(testDrink.__base)
-
-# yumDrink = Drink("water")
-# yumDrink.add_flavor("lemon")
-
-# order = Order()
-# order.add_item(yumDrink)
-            
-# print("You have", order.get_num_items(), "drink(s) in your order")
-# print("Your total for the order is:", "$", order.get_total())
+        """Checks index less than the length of ._items."""
+        if 0 <= index < len(self._items):
+            """Removes the item at index."""
+            del self._items[index]
