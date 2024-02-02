@@ -89,3 +89,48 @@ def test_remove_item_invalid_index():
     order.add_item(drink)
     order.remove_item(1)
     assert order.get_items() == [drink]
+
+def test_size_and_cost():
+    drink = Drink("sbrite", "medium")
+    assert drink.get_size() == "medium"
+    assert drink.get_total() == 1.75
+
+def test_set_size_case_insensitive():
+    drink = Drink("sbrite", "small")
+    drink.set_size("MEGa")
+    assert drink.get_size() == "mega"
+    assert drink.get_total() == 2.15
+
+def test_get_total_with_flavors_and_size():
+    drink = Drink("sbrite", "large")
+    drink.add_flavor("lemon")
+    assert drink.get_total() == 2.05 + 0.15
+
+def test_get_size_accessor():
+    drink = Drink("sbrite", "medium")
+    assert drink.get_size() == "medium"
+
+def test_set_size_accessor():
+    drink = Drink("sbrite", "medium")
+    drink.set_size("large")
+    assert drink.get_size() == "large"
+
+def test_generate_receipt_with_sizes_and_flavors():
+    order = Order()
+    drink1 = Drink("sbrite", "medium")
+    drink1.add_flavor("lemon")
+    drink2 = Drink("water", "small")
+    order.add_item(drink1)
+    order.add_item(drink2)
+
+    receipt = order.generate_receipt()
+    assert receipt["num_beverages"] == 2
+    assert receipt["beverage_details"][0]["base"] == "sbrite"
+    assert receipt["beverage_details"][0]["size"] == "medium"
+    assert receipt["beverage_details"][0]["total"] == drink1.get_total()
+    assert receipt["beverage_details"][1]["base"] == "water"
+    assert receipt["beverage_details"][1]["size"] == "small"
+    assert receipt["beverage_details"][1]["total"] == drink2.get_total()
+    assert receipt["total_cost"] == drink1.get_total() + drink2.get_total()
+    assert receipt["tax"] == 0.0725 * (drink1.get_total() + drink2.get_total())
+    assert receipt["overall_total"] == 1.0725 * (drink1.get_total() + drink2.get_total())
