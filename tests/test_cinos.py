@@ -91,31 +91,37 @@ def test_remove_item_invalid_index():
     assert order.get_items() == [drink]
 
 def test_size_and_cost():
+    """Test that the size and cost are correctly set for a drink"""
     drink = Drink("sbrite", "medium")
     assert drink.get_size() == "medium"
     assert drink.get_total() == 1.75
 
 def test_set_size_case_insensitive():
+    """Tests case sensitivity"""
     drink = Drink("sbrite", "small")
     drink.set_size("MEGa")
     assert drink.get_size() == "mega"
     assert drink.get_total() == 2.15
 
 def test_get_total_with_flavors_and_size():
+    """Calculates the correct total for a drink with flavors and size."""
     drink = Drink("sbrite", "large")
     drink.add_flavor("lemon")
     assert drink.get_total() == 2.05 + 0.15
 
 def test_get_size_accessor():
+    """Returns the correct size of a drink."""
     drink = Drink("sbrite", "medium")
     assert drink.get_size() == "medium"
 
 def test_set_size_accessor():
+    """Correctly sets the size of a drink."""
     drink = Drink("sbrite", "medium")
     drink.set_size("large")
     assert drink.get_size() == "large"
 
 def test_generate_receipt_with_sizes_and_flavors():
+    """Produces the correct receipt for an order with drinks of various sizes and flavors."""
     order = Order()
     drink1 = Drink("sbrite", "medium")
     drink1.add_flavor("lemon")
