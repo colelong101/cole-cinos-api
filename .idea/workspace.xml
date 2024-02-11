@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe800a3-d859-4ae1-a055-b64615bcdc7b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/api/Drink.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/Drink.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_cinos.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_cinos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,13 +28,14 @@
     "Python.Drink.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "pep-8-fixes",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/colek/OneDrive/Desktop/coding/Python/cole-cinos-api",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.file-colors",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -56,6 +56,8 @@
       <updated>1707676633375</updated>
       <workItem from="1707676634473" duration="1765000" />
       <workItem from="1707678553578" duration="1358000" />
+      <workItem from="1707680342685" duration="97000" />
+      <workItem from="1707680449122" duration="321000" />
     </task>
     <servers />
   </component>
