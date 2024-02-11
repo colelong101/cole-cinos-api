@@ -73,6 +73,7 @@ class Drink:
         total += len(self._flavors) * self._flavor_price
         return total
 
+
 drink = Drink("hill_fog", "medium")
 drink.add_flavor("lemon")
 
