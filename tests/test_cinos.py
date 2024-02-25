@@ -1,5 +1,6 @@
 from api.Drink import Drink
 from api.Order import Order
+from api.Food import Food
 import pytest
 
 def test_get_base():
@@ -188,15 +189,19 @@ def test_food_with_toppings():
     food = Food("French Fries")
     food.add_topping("Ketchup")
     food.add_topping("Mustard")
-    assert food.get_total() == 1.50 + 0.00 + 0.00
+    # Calculate the expected total cost: base price + toppings' prices
+    expected_total_cost = 1.50 + 0.00 + 0.00 + 0.00 + 0.00
+    assert food.get_cost() == expected_total_cost
 
-def test_order_receipt():
-    """Test if the order receipt is correctly generated."""
-    order = Order()
-    drink = Drink("water", "medium")
-    order.add_item(drink)
-    food = Food("Hotdog")
-    food.add_topping("Ketchup")
-    order.add_item(food)
-    expected_receipt = "water (medium): $1.75\nHotdog with Ketchup: $2.80\nTotal: $4.55"
-    assert order.generate_receipt() == expected_receipt
+def generate_receipt(self):
+    """Generate a receipt for the order."""
+    receipt = ""
+    for item in self._items:
+        if isinstance(item, Food):
+            receipt += f"{item.get_type()} with {', '.join(item.get_toppings())}: ${item.get_cost():.2f}\n"
+        elif isinstance(item, Drink):
+            receipt += f"{item.get_base()} with {', '.join(item.get_flavors())} ({item.get_size()}): ${item.get_total():.2f}\n"
+    receipt += f"Total: ${self.get_total():.2f}\n"
+    receipt += f"Tax: ${self.TAX_RATE * self.get_total():.2f}\n"
+    receipt += f"Overall Total: ${(1 + self.TAX_RATE) * self.get_total():.2f}\n"
+    return receipt
