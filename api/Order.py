@@ -18,32 +18,24 @@ class Order:
         """Get the total price of the order."""
         total = 0
         for item in self._items:
-            total += item.get_total()
+            total += item.get_cost()
         return total
 
-    def add_item(self, drink):
-        """Add a drink to the order."""
-        self._items.append(drink)
+    def add_item(self, item):
+        """Add an item (drink or food) to the order."""
+        self._items.append(item)
 
     def remove_item(self, index):
-        """Remove a drink from the order based on index."""
+        """Remove an item (drink or food) from the order based on index."""
         if 0 <= index < len(self._items):
             del self._items[index]
 
     def generate_receipt(self):
         """Generate a receipt for the order."""
-        receipt = {
-            "num_beverages": self.get_num_items(),
-            "beverage_details": [],
-            "total_cost": self.get_total(),
-            "tax": self.TAX_RATE * self.get_total(),
-            "overall_total": (1 + self.TAX_RATE) * self.get_total()
-        }
+        receipt = ""
         for item in self._items:
-            beverage_detail = {
-                "base": item.get_base(),
-                "size": item.get_size(),
-                "total": item.get_total()
-            }
-            receipt["beverage_details"].append(beverage_detail)
+            receipt += f"{item.get_type()} with {', '.join(item.get_toppings())}: ${item.get_cost():.2f}\n"
+        receipt += f"Total: ${self.get_total():.2f}\n"
+        receipt += f"Tax: ${self.TAX_RATE * self.get_total():.2f}\n"
+        receipt += f"Overall Total: ${(1 + self.TAX_RATE) * self.get_total():.2f}\n"
         return receipt

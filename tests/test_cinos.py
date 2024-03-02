@@ -1,6 +1,7 @@
 from api.Drink import Drink
 from api.Order import Order
-
+from api.Food import Food
+import pytest
 
 def test_get_base():
     """Test the getter for the base of the drink."""
@@ -138,3 +139,69 @@ def test_set_size_accessor():
     drink = Drink("sbrite", "medium")
     drink.set_size("large")
     assert drink.get_size() == "large"
+
+def test_food_cost():
+    """Test the cost of a food item."""
+    food = Food("Hotdog")
+    assert food.get_cost() == 2.30
+
+def test_food_toppings_empty():
+    """Test if food item toppings return an empty list when toppings are not set."""
+    food = Food("Hotdog")
+    assert food.get_toppings() == []
+
+def test_food_add_topping():
+    """Test adding a valid topping to a food item."""
+    food = Food("Hotdog")
+    food.add_topping("Ketchup")
+    assert food.get_toppings() == ["Ketchup"]
+
+def test_food_duplicate_add_topping():
+    """Test adding a duplicate topping to a food item."""
+    food = Food("Hotdog")
+    food.add_topping("Ketchup")
+    with pytest.raises(ValueError):
+        food.add_topping("Ketchup")
+
+def test_food_get_type():
+    """Test getting the type of food."""
+    food = Food("Hotdog")
+    assert food.get_type() == "Hotdog"
+
+def test_add_food_item():
+    """Test if add_item correctly adds a food item to the order."""
+    order = Order()
+    food = Food("Hotdog")
+    order.add_item(food)
+    assert order.get_items() == [food]
+
+def test_get_total_with_food():
+    """Test if get_total returns the correct total when food items are added to the order."""
+    order = Order()
+    food1 = Food("Hotdog")
+    food2 = Food("Corndog")
+    order.add_item(food1)
+    order.add_item(food2)
+    assert order.get_total() == 2.30 + 2.00
+
+def test_food_with_toppings():
+    """Test the total cost of a food item with toppings."""
+    food = Food("French Fries")
+    food.add_topping("Ketchup")
+    food.add_topping("Mustard")
+    # Calculate the expected total cost: base price + toppings' prices
+    expected_total_cost = 1.50 + 0.00 + 0.00 + 0.00 + 0.00
+    assert food.get_cost() == expected_total_cost
+
+def generate_receipt(self):
+    """Generate a receipt for the order."""
+    receipt = ""
+    for item in self._items:
+        if isinstance(item, Food):
+            receipt += f"{item.get_type()} with {', '.join(item.get_toppings())}: ${item.get_cost():.2f}\n"
+        elif isinstance(item, Drink):
+            receipt += f"{item.get_base()} with {', '.join(item.get_flavors())} ({item.get_size()}): ${item.get_total():.2f}\n"
+    receipt += f"Total: ${self.get_total():.2f}\n"
+    receipt += f"Tax: ${self.TAX_RATE * self.get_total():.2f}\n"
+    receipt += f"Overall Total: ${(1 + self.TAX_RATE) * self.get_total():.2f}\n"
+    return receipt
