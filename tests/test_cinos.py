@@ -1,6 +1,7 @@
 from api.Drink import Drink
 from api.Order import Order
 from api.Food import Food
+# from api.IceStorm import IceStorm
 import pytest
 
 def test_get_base():
@@ -192,6 +193,35 @@ def test_food_with_toppings():
     # Calculate the expected total cost: base price + toppings' prices
     expected_total_cost = 1.50 + 0.00 + 0.00 + 0.00 + 0.00
     assert food.get_cost() == expected_total_cost
+
+def test_add_flavor_ice_storm():
+    ice_storm = IceStorm("medium")
+    flavor = "Mint Chocolate Chip"
+    ice_storm.add_flavor(flavor)
+    assert flavor in ice_storm.get_flavors()
+
+def test_get_size_ice_storm():
+    size = "medium"
+    ice_storm = IceStorm(size)
+    assert ice_storm.get_size() == size
+
+def test_get_total_ice_storm():
+    ice_storm = IceStorm("medium")
+    flavor = "Mint Chocolate Chip"
+    ice_storm.add_flavor(flavor)
+    assert ice_storm.get_total() == 4.00
+
+def test_get_num_flavors_ice_storm():
+    ice_storm = IceStorm("medium")
+    flavor = "Mint Chocolate Chip"
+    ice_storm.add_flavor(flavor)
+    assert ice_storm.get_num_flavors() == 1
+
+def test_get_flavors_ice_storm():
+    ice_storm = IceStorm("medium")
+    flavor = "Mint Chocolate Chip"
+    ice_storm.add_flavor(flavor)
+    assert ice_storm.get_flavors() == [flavor]
 
 def generate_receipt(self):
     """Generate a receipt for the order."""
