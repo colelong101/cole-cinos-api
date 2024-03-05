@@ -1,8 +1,9 @@
 from api.Drink import Drink
 from api.Order import Order
 from api.Food import Food
-# from api.IceStorm import IceStorm
+from api.IceStorm import IceStorm
 import pytest
+
 
 def test_get_base():
     """Test the getter for the base of the drink."""
@@ -17,7 +18,7 @@ def test_get_flavors_empty():
 
 
 def test_get_total():
-    """Test if get_total method returns the correct drink price."""
+    """Test get_total method returns the correct drink price."""
     drink = Drink("water", "medium")
     assert drink.get_total() == 1.75
 
